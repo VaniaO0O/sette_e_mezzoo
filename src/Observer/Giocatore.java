@@ -37,6 +37,10 @@ public class Giocatore implements TurnObserver, Serializable {
         this.puntata = 0;
     }
 
+    public boolean noGettoni(){
+        return this.getGettoni() <= 0;
+    }
+
     public void svuotaMano(){
         mano = new ArrayList<>();
     }

@@ -92,8 +92,58 @@ public class GameManager {
         }
 
         JOptionPane.showMessageDialog(null, text.toString());
-        salvaSuFile();
+        checkExit(0);
     }
+
+    public void checkforObserversInGame(){
+        for (Giocatore g : getTurnManager().getGiocatoriNoMazziere()) {
+            if(g.noGettoni())
+                getTurnManager().removeObserver(g);
+        }
+    }
+    private boolean isOneCPUOut(){
+        for (Giocatore g : getTurnManager().getGiocatoriNoMazziere()) {
+            if(g.noGettoni())
+                return true;
+        }
+        return false;
+    }
+
+    public void checkExit(int code){
+        JOptionPane.showMessageDialog(null, "Game Over");
+        if (isOneCPUOut()){
+            JOptionPane.showMessageDialog(null, "Hai vinto, una CPU non puó continuare a giocare");
+            System.exit(code);
+        }
+        else if (getMazziere().noGettoni()){
+            JOptionPane.showMessageDialog(null,"Hai perso, non hai piu gettoni");
+            System.exit(code);
+        }
+        salvaSuFile();
+
+    }
+
+    public void checkExit(){
+        if (gameOver()) {
+            JOptionPane.showMessageDialog(null, "Game Over");
+
+            boolean isMazziere = getMazziere().noGettoni();
+            if (isMazziere)
+                JOptionPane.showMessageDialog(null, getMazziere().getNome() + " ha perso tutti i gettoni aahhahahahah sfigato");
+            else
+                JOptionPane.showMessageDialog(null, "Tutti gli altri giocatori hanno finito i gettoni. Hai vinto");
+            System.exit(0);
+        }
+        else
+            salvaSuFile();
+    }
+
+    public boolean gameOver(){
+        if (getMazziere().noGettoni())
+            return true;
+        return getTurnManager().getGiocatori().size() == 1;
+    }
+    
 
     public Giocatore getMazziere() {
         for (Giocatore g : turnManager.getGiocatori()) {
@@ -114,6 +164,8 @@ public class GameManager {
     public TurnManager getTurnManager() {
         return this.turnManager;
     }
+
+
 
     public void onPesca() {
         Giocatore giocatore = getTurnManager().getGiocatoreCorrente();

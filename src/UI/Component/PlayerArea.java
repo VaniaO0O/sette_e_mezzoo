@@ -2,6 +2,7 @@ package UI.Component;
 
 import Observer.Giocatore;
 import Observer.TurnObserver;
+import UI.GameManager;
 import UI.Panels.ImageObject;
 
 import javax.swing.*;
@@ -12,10 +13,12 @@ public class PlayerArea extends JPanel implements TurnObserver {
     private final JLabel punteggioMano,gettoni,puntata;
     private final JPanel centro = new JPanel(new BorderLayout());
     private JLabel cartaLabel;
-    private ImageObject immagineCarta = getPlaceholder();
+    private final ImageObject immagineCarta = getPlaceholder();
+    //private GameManager gm;
 
     public PlayerArea(Giocatore giocatore) {
         this.giocatore = giocatore;
+        //this.gm = gm;
 
         setLayout(new BorderLayout());
         setOpaque(true);
@@ -92,7 +95,6 @@ public class PlayerArea extends JPanel implements TurnObserver {
         gettoni.setText("Gettoni: " + giocatore.getGettoni());
         punteggioMano.setText("Punteggio carte: " + giocatore.getPunteggioCarte());
         aggiungiCarta(giocatore);
-
     }
 
     public ImageObject getPlaceholder() {
