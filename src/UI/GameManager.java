@@ -95,15 +95,9 @@ public class GameManager {
         }
 
         JOptionPane.showMessageDialog(null, text.toString());
-        checkExit(0);
+        checkExit();
     }
 
-    public void checkforObserversInGame(){
-        for (Giocatore g : getTurnManager().getGiocatoriNoMazziere()) {
-            if(g.noGettoni())
-                getTurnManager().removeObserver(g);
-        }
-    }
 
     private boolean isOneCPUOut(){
         for (Giocatore g : getTurnManager().getGiocatoriNoMazziere()) {
@@ -113,42 +107,20 @@ public class GameManager {
         return false;
     }
 
-    public void checkExit(int code){
+    public void checkExit(){
         if (isOneCPUOut()){
             JOptionPane.showMessageDialog(null, "Game Over");
             JOptionPane.showMessageDialog(null, "Hai vinto, una CPU non puó continuare a giocare");
-            System.exit(code);
+            System.exit(0);
         }
         else if (getMazziere().noGettoni()){
             JOptionPane.showMessageDialog(null, "Game Over");
             JOptionPane.showMessageDialog(null,"Hai perso, non hai piu gettoni");
-            System.exit(code);
+            System.exit(0);
         }
         salvaSuFile();
 
     }
-
-    public void checkExit(){
-        if (gameOver()) {
-            JOptionPane.showMessageDialog(null, "Game Over");
-
-            boolean isMazziere = getMazziere().noGettoni();
-            if (isMazziere)
-                JOptionPane.showMessageDialog(null, getMazziere().getNome() + " ha perso tutti i gettoni aahhahahahah sfigato");
-            else
-                JOptionPane.showMessageDialog(null, "Tutti gli altri giocatori hanno finito i gettoni. Hai vinto");
-            System.exit(0);
-        }
-        else
-            salvaSuFile();
-    }
-
-    public boolean gameOver(){
-        if (getMazziere().noGettoni())
-            return true;
-        return getTurnManager().getGiocatori().size() == 1;
-    }
-    
 
     public Giocatore getMazziere() {
         for (Giocatore g : turnManager.getGiocatori()) {
@@ -294,7 +266,7 @@ public class GameManager {
      * Salva un GameData e lo aggiunge ad un originator
      */
     public void salvaStato() {
-        GameData data = new GameData(turnManager.getGiocatori(), this.mazzo.getRemainingCardsSnapshot(),getStringStrategy());
+        GameData data = new GameData(turnManager.getGiocatori(), this.mazzo.getRemainingCards(),getStringStrategy());
         System.out.println(data);
         originator.setState(data);
         caretaker.addMemento(originator.saveStateToMemento());
@@ -305,7 +277,7 @@ public class GameManager {
      */
     public void salvaSuFile() {
         try {
-            GameData data = new GameData(turnManager.getGiocatori(), this.mazzo.getRemainingCardsSnapshot(), getStringStrategy());
+            GameData data = new GameData(turnManager.getGiocatori(), this.mazzo.getRemainingCards(), getStringStrategy());
             originator.setState(data);
             GameMemento memento = originator.saveStateToMemento();
 

@@ -81,7 +81,7 @@ public class MazzoNapoletano implements MazzoFactory {
      * @return lista di carte che rimangono nel mazzo
      */
     @Override
-    public List<Carta> getRemainingCardsSnapshot() {
+    public List<Carta> getRemainingCards() {
         return new ArrayList<>(mazzo);
     }
 

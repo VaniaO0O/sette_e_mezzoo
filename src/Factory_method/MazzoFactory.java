@@ -8,5 +8,5 @@ public interface MazzoFactory {
         void setCarte(List<Carta> carte);
         void resettaMazzo();
         void mischiaCarte();
-        List<Carta> getRemainingCardsSnapshot();
+        List<Carta> getRemainingCards();
 }
