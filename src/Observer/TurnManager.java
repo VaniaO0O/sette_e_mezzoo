@@ -58,16 +58,6 @@ public class TurnManager implements TurnSubject {
     }
 
     /**
-     *
-     * @param observer rimuove osservatore selezionato
-     */
-    @Override
-    public void removeObserver(TurnObserver observer) {
-        observers.remove(observer);
-        giocatore.remove(observer);
-    }
-
-    /**
      * Notifica tutti gli osservatori che lo stato è cambiato
      */
     @Override

@@ -44,6 +44,7 @@ public class Giocatore implements TurnObserver, Serializable {
     public void svuotaMano(){
         mano = new ArrayList<>();
     }
+
     public void addCarta(Carta c) {
         mano.add(c);
     }
