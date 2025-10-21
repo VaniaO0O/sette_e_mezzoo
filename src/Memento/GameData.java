@@ -17,7 +17,7 @@ public class GameData implements Serializable {
     private final List<Carta> mazzo;
     private final String modalita;
 
-    public GameData(List<Giocatore> giocatori,List<Carta> mazzo, String modalita) {
+    public GameData(List<Giocatore> giocatori, List<Carta> mazzo, String modalita) {
         this.giocatore = giocatori;
         this.mazzo = mazzo;
         this.modalita = modalita;

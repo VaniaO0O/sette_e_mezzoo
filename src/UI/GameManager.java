@@ -1,16 +1,17 @@
 package UI;
 
-import Mazzo.Mazzo;
+import Factory_method.*;
+import Mazzo.MazzoNapoletano;
 import Memento.*;
 import Observer.*;
 import Strategy.*;
-import UI.Screens.*;
 import Strategy.Action;
 
 import javax.swing.*;
 import java.io.File;
 
 public class GameManager {
+    private final MazzoFactory mazzo = MazzoNapoletano.getInstance();
     private final TurnManager turnManager = new TurnManager();
     private ActionStrategy strategy;
     private final Object cpuLock = new Object();
@@ -23,7 +24,7 @@ public class GameManager {
         turnManager.aggiungiGiocatore(new Giocatore("CPU1", gettoni, false));
         turnManager.aggiungiGiocatore(new Giocatore("CPU2", gettoni, false));
         turnManager.aggiungiGiocatore(new Giocatore("CPU3", gettoni, false));
-        Mazzo.getInstance().mischiaCarte();
+        MazzoNapoletano.getInstance().mischiaCarte();
         setStrategy(strategy);
         inizializzaMano();
     }
@@ -35,7 +36,7 @@ public class GameManager {
 
     private void inizializzaMano(){
         for (Giocatore g : getTurnManager().getGiocatori()){
-            g.addCarta(Mazzo.daiCarta());
+            g.addCarta(this.mazzo.daiCarta());
         }
     }
 
@@ -176,7 +177,7 @@ public class GameManager {
         Giocatore giocatore = getTurnManager().getGiocatoreCorrente();
         if (!(giocatore.isMazziere()) || giocatore.getPuntata() != 0) {
             if (!giocatore.isOut())
-                giocatore.addCarta(Mazzo.daiCarta());
+                giocatore.addCarta(this.mazzo.daiCarta());
             else
                 JOptionPane.showMessageDialog(null, giocatore.getNome() + " ha sballato");
             this.getTurnManager().notifyObservers();
@@ -293,7 +294,7 @@ public class GameManager {
      * Salva un GameData e lo aggiunge ad un originator
      */
     public void salvaStato() {
-        GameData data = new GameData(turnManager.getGiocatori(), Mazzo.getInstance().getRemainingCardsSnapshot(),getStringStrategy());
+        GameData data = new GameData(turnManager.getGiocatori(), this.mazzo.getRemainingCardsSnapshot(),getStringStrategy());
         System.out.println(data);
         originator.setState(data);
         caretaker.addMemento(originator.saveStateToMemento());
@@ -304,7 +305,7 @@ public class GameManager {
      */
     public void salvaSuFile() {
         try {
-            GameData data = new GameData(turnManager.getGiocatori(), Mazzo.getInstance().getRemainingCardsSnapshot(), getStringStrategy());
+            GameData data = new GameData(turnManager.getGiocatori(), this.mazzo.getRemainingCardsSnapshot(), getStringStrategy());
             originator.setState(data);
             GameMemento memento = originator.saveStateToMemento();
 
@@ -333,7 +334,7 @@ public class GameManager {
 
                 GameData restored = originator.getGameData();
                 turnManager.setGiocatori(restored.getGiocatore());
-                Mazzo.getInstance().setCarte(restored.getMazzo());
+                this.mazzo.setCarte(restored.getMazzo());
                 setStrategy(restored.getModalita());
                 JOptionPane.showMessageDialog(null, "Partita caricata da:\n" + file.getAbsolutePath());
 
