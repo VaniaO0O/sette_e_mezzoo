@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("unused")
 public class Mazzo {
     private static Mazzo instance;
     private static final List<Carta> original = CardFactory.createNapoletaneDeck();
@@ -29,6 +28,11 @@ public class Mazzo {
         return instance;
     }
 
+    /**
+     * Uso singleton per dare carta
+     * @return la carta sopra al mazzo
+     * @throws MazzoFinito se il mazzo è vuoto e lo resetta
+     */
     public static Carta daiCarta(){
         try {
             if (mazzo.isEmpty())
@@ -66,12 +70,6 @@ public class Mazzo {
         Collections.shuffle(mazzo);
     }
 
-    /**
-     * @return quante carte rimangono nel mazzo
-     */
-    public int remaining() {
-        return mazzo.size();
-    }
 
     /**
      *

@@ -2,7 +2,6 @@ package Memento;
 
 import Mazzo.Carta;
 import Observer.Giocatore;
-import Strategy.ActionStrategy;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -16,6 +15,12 @@ public class GameMemento implements Memento, Serializable {
     private final List<Carta> mazzo;
     private final String modalita;
 
+    /**
+     * Crea un memento copiando i dati ricevuti
+     * @param giocatori lista giocatori
+     * @param mazzo mazzo corrente
+     * @param modalita modalita di gioco
+     */
     public GameMemento(List<Giocatore> giocatori, List<Carta> mazzo, String modalita) {
         // Creiamo copie "profondamente immutabili" per sicurezza
         this.giocatori = new ArrayList<>();
@@ -46,6 +51,10 @@ public class GameMemento implements Memento, Serializable {
         return this.modalita;
     }
 
+    /**
+     *
+     * @return Il GameData usando i parameri salvati
+     */
     @Override
     public GameData restoreState() {
         return new GameData(getGiocatori(),getMazzo(), getModalita());

@@ -17,8 +17,9 @@ public class GameManager {
     private final GameOriginator originator = new GameOriginator();
     private final Caretaker caretaker = new Caretaker();
 
+    //Costruttore nuova partita
     public GameManager(String nome, int gettoni,String strategy) {
-        turnManager.aggiungiGiocatore(new Giocatore(nome, gettoni, true)); // mazziere umano
+        turnManager.aggiungiGiocatore(new Giocatore(nome, gettoni, true));
         turnManager.aggiungiGiocatore(new Giocatore("CPU1", gettoni, false));
         turnManager.aggiungiGiocatore(new Giocatore("CPU2", gettoni, false));
         turnManager.aggiungiGiocatore(new Giocatore("CPU3", gettoni, false));
@@ -27,6 +28,7 @@ public class GameManager {
         inizializzaMano();
     }
 
+    //Costruttore carica partita
     public GameManager(File file) {
         caricaDaFile(file);
     }
@@ -101,6 +103,7 @@ public class GameManager {
                 getTurnManager().removeObserver(g);
         }
     }
+
     private boolean isOneCPUOut(){
         for (Giocatore g : getTurnManager().getGiocatoriNoMazziere()) {
             if(g.noGettoni())
@@ -110,12 +113,13 @@ public class GameManager {
     }
 
     public void checkExit(int code){
-        JOptionPane.showMessageDialog(null, "Game Over");
         if (isOneCPUOut()){
+            JOptionPane.showMessageDialog(null, "Game Over");
             JOptionPane.showMessageDialog(null, "Hai vinto, una CPU non puó continuare a giocare");
             System.exit(code);
         }
         else if (getMazziere().noGettoni()){
+            JOptionPane.showMessageDialog(null, "Game Over");
             JOptionPane.showMessageDialog(null,"Hai perso, non hai piu gettoni");
             System.exit(code);
         }
@@ -165,8 +169,9 @@ public class GameManager {
         return this.turnManager;
     }
 
-
-
+    /**
+     * Azione Pesca
+     */
     public void onPesca() {
         Giocatore giocatore = getTurnManager().getGiocatoreCorrente();
         if (!(giocatore.isMazziere()) || giocatore.getPuntata() != 0) {
@@ -181,6 +186,9 @@ public class GameManager {
             JOptionPane.showMessageDialog(null, "Punta prima di pescare");
     }
 
+    /**
+     * Azione Passa
+     */
     public void onPassa() {
         try {
             Giocatore giocatore = getTurnManager().getGiocatoreCorrente();
@@ -202,6 +210,9 @@ public class GameManager {
         }
     }
 
+    /**
+     * Azione Punta
+     */
     public void onPunta() {
         Giocatore giocatore = getTurnManager().getGiocatoreCorrente();
         SpinnerNumberModel mod = new SpinnerNumberModel(1, 1, giocatore.getGettoni(), 1);
@@ -227,14 +238,14 @@ public class GameManager {
 
 
     /**
-     *Stabilisce la modalità.
+     * @param mode stabilisce la modalità
      */
     public void setStrategy(String mode) {
         this.strategy = mode.equals("Difficile") ? new CPUDifficile() : new CPU();
     }
 
     /**
-     * Fa eseguire automaticamente il turno alle CPU.
+     * Fa eseguire automaticamente il turno alla CPU.
      */
     public void eseguiTurnoCPU() {
         Giocatore corrente = getTurnManager().getGiocatoreCorrente();
@@ -277,6 +288,10 @@ public class GameManager {
             }).start();
         }
     }
+
+    /**
+     * Salva un GameData e lo aggiunge ad un originator
+     */
     public void salvaStato() {
         GameData data = new GameData(turnManager.getGiocatori(), Mazzo.getInstance().getRemainingCardsSnapshot(),getStringStrategy());
         System.out.println(data);
@@ -284,6 +299,9 @@ public class GameManager {
         caretaker.addMemento(originator.saveStateToMemento());
     }
 
+    /**
+     * Prompt grafico per salvare su file il memento preso da salvaStato()
+     */
     public void salvaSuFile() {
         try {
             GameData data = new GameData(turnManager.getGiocatori(), Mazzo.getInstance().getRemainingCardsSnapshot(), getStringStrategy());
@@ -304,9 +322,12 @@ public class GameManager {
         }
     }
 
-    public void caricaDaFile(File file) {
+    /**
+     * Carica da file un memento salvato in precedenza
+     * @param file Il file selezionato
+     */
+    private void caricaDaFile(File file) {
         try {
-
                 GameMemento loaded = FileManager.caricaDaFile(file);
                 originator.restoreFrom(loaded);
 
