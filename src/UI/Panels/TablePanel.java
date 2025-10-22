@@ -14,7 +14,7 @@ public class TablePanel extends JPanel {
         setLayout(null);
         setPreferredSize(new Dimension(1152, 768));
         
-        // Aree dei giocatori
+
         PlayerArea playerArea = new PlayerArea(gm.getTurnManager().getGiocatori().get(0));
         PlayerArea cpu1Area = new PlayerArea(gm.getTurnManager().getGiocatori().get(1));
         PlayerArea cpu2Area = new PlayerArea(gm.getTurnManager().getGiocatori().get(2));
@@ -27,10 +27,10 @@ public class TablePanel extends JPanel {
 
         gm.getTurnManager().notifyObservers();
 
-        // Area centrale
+
         CenterArea centerArea = new CenterArea();
 
-        // Posizionamento
+
         addComponent(playerArea, 480, 500);
         addComponent(cpu1Area, 480, 20);
         addComponent(cpu2Area, 940, 340);

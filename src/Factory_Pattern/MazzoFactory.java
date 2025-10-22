@@ -1,4 +1,4 @@
-package Factory_method;
+package Factory_Pattern;
 import Mazzo.Carta;
 import java.util.List;
 

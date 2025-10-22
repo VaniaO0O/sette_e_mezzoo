@@ -9,7 +9,7 @@ public class MainFrame extends JFrame {
     private Screen currentScreen;
 
     public MainFrame() {
-        setTitle("Sette e Mezzo");
+        setTitle("Sei e tre mezzi");
         setSize(1152, 768);
         try {
             setIconImage(ImageIO.read(new File("out/immagini/background/titolo.png")));

@@ -1,7 +1,7 @@
 package UI;
 
-import Factory_method.*;
-import Mazzo.MazzoNapoletano;
+import Factory_Pattern.*;
+import Factory_Pattern.MazzoNapoletano;
 import Memento.*;
 import Observer.*;
 import Strategy.*;
@@ -18,7 +18,7 @@ public class GameManager {
     private final GameOriginator originator = new GameOriginator();
     private final Caretaker caretaker = new Caretaker();
 
-    //Costruttore nuova partita
+
     public GameManager(String nome, int gettoni,String strategy) {
         turnManager.aggiungiGiocatore(new Giocatore(nome, gettoni, true));
         turnManager.aggiungiGiocatore(new Giocatore("CPU1", gettoni, false));
@@ -29,7 +29,7 @@ public class GameManager {
         inizializzaMano();
     }
 
-    //Costruttore carica partita
+
     public GameManager(File file) {
         caricaDaFile(file);
     }

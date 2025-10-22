@@ -11,9 +11,9 @@ public class CenterArea extends JPanel {
         setOpaque(false);
         setPreferredSize(new Dimension(400, 250));
 
-        //Mazzo.Mazzo scalabile
-        ImageObject mazzo = new ImageObject("out/immagini/png_carte/retro.png", 120, 20);
-        mazzo.setScale(0.30);
+
+        ImageObject mazzo = new ImageObject("out/immagini/png_carte/retro.png", 70, 20);
+        mazzo.setScale(0.42);
 
         add(mazzo);
 

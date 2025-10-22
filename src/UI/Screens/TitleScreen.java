@@ -6,7 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-
 public class TitleScreen implements Screen {
     private final JPanel panel;
 
@@ -21,16 +20,14 @@ public class TitleScreen implements Screen {
             }
         };
 
-
-
         panel.setLayout(new BorderLayout());
 
-        // Titolo
+
         JLabel titolo = new JLabel(new ImageIcon("out/immagini/background/titolo2.png"));
         titolo.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(titolo, BorderLayout.NORTH);
 
-        // Nuova partita
+
         JPanel bottom = getPanel(frame);
         panel.add(bottom, BorderLayout.CENTER);
     }
@@ -42,21 +39,24 @@ public class TitleScreen implements Screen {
         startButton.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
         startButton.setOpaque(false);
         loadButton.setOpaque(false);
+
         startButton.addActionListener(_ -> {
             String nome = JOptionPane.showInputDialog("Nome Giocatore");
-            if(nome == null || nome.isEmpty()) {nome = "🚘";}
+            if (nome == null || nome.isEmpty()) {
+                nome = "🚘";
+            }
             String g = "";
             while (g.isEmpty() || Integer.parseInt(g) <= 0) {
                 g = JOptionPane.showInputDialog("Inserisci Gettoni Giocatore");
             }
             int gettoni = Integer.parseInt(g);
-            String[] opzioni = {"Normale","Difficile"};
+            String[] opzioni = {"Normale", "Difficile"};
             JComboBox<String> comboBox = new JComboBox<>(opzioni);
-            int result = JOptionPane.showConfirmDialog(null,comboBox,"Seleziona difficoltá CPU",JOptionPane.OK_CANCEL_OPTION);
+            int result = JOptionPane.showConfirmDialog(null, comboBox, "Seleziona difficoltá CPU", JOptionPane.OK_CANCEL_OPTION);
             String strategy = "";
-            if(result == JOptionPane.OK_OPTION)
-                strategy = (String)comboBox.getSelectedItem();
-            frame.setScreen(new GameScreen(nome,gettoni,strategy));
+            if (result == JOptionPane.OK_OPTION)
+                strategy = (String) comboBox.getSelectedItem();
+            frame.setScreen(new GameScreen(nome, gettoni, strategy));
         });
 
         loadButton.addActionListener(_ -> {
@@ -69,10 +69,18 @@ public class TitleScreen implements Screen {
             }
         });
 
+
         JPanel bottom = new JPanel();
         bottom.setOpaque(false);
+        bottom.setLayout(new BoxLayout(bottom, BoxLayout.Y_AXIS));
+
+
+        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loadButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         bottom.add(startButton);
+        bottom.add(Box.createRigidArea(new Dimension(0, 20))); // spazio verticale
         bottom.add(loadButton);
+
         return bottom;
     }
 

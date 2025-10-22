@@ -27,13 +27,10 @@ public class CPUDifficile implements ActionStrategy {
         float punteggio = cpu.getPunteggioCarte();
         float distanza = 7.5F - punteggio;
 
-        // se la distanza è > 2 → rischio basso:  pesca
         if (distanza > 2.0F) return Action.PESCA;
 
-        // se la distanza è tra 1 e 2: pesca con probabilità 50%
         if (distanza > 1.0F && Math.random() < 0.5) return Action.PESCA;
 
-        // altrimenti passa
-        return Action.PASSA;
+    return Action.PASSA;
     }
 }

@@ -19,7 +19,7 @@ public class PlayerControlsPanel extends JPanel {
         puntaBtn = new JButton("Punta");
         JButton exitBtn = new JButton("Esci");
 
-        // Azioni collegate al controller
+
         pescaBtn.addActionListener(_ -> controller.onPesca());
         passaBtn.addActionListener(_ -> controller.onPassa());
         puntaBtn.addActionListener(_ -> {
@@ -34,10 +34,4 @@ public class PlayerControlsPanel extends JPanel {
         add(exitBtn);
     }
 
-    // Opzionale: puoi disattivare i bottoni in base al turno
-    public void setEnabledControls(boolean enabled) {
-        pescaBtn.setEnabled(enabled);
-        passaBtn.setEnabled(enabled);
-        puntaBtn.setEnabled(enabled);
-    }
 }

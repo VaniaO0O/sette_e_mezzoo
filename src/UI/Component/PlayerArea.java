@@ -2,7 +2,6 @@ package UI.Component;
 
 import Observer.Giocatore;
 import Observer.TurnObserver;
-import UI.GameManager;
 import UI.Panels.ImageObject;
 
 import javax.swing.*;
@@ -14,24 +13,24 @@ public class PlayerArea extends JPanel implements TurnObserver {
     private final JPanel centro = new JPanel(new BorderLayout());
     private JLabel cartaLabel;
     private final ImageObject immagineCarta = getPlaceholder();
-    //private GameManager gm;
+
 
     public PlayerArea(Giocatore giocatore) {
         this.giocatore = giocatore;
-        //this.gm = gm;
+
 
         setLayout(new BorderLayout());
         setOpaque(true);
-        setBackground(new Color(0, 60, 0)); // verde da tavolo
+        setBackground(new Color(0, 60, 0));
         setBorder(BorderFactory.createLineBorder(Color.black, 3));
 
-        // Nome del giocatore
+
         JLabel nomeGiocatore = new JLabel(giocatore.getNome(), SwingConstants.CENTER);
         nomeGiocatore.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
         nomeGiocatore.setForeground(Color.WHITE);
         add(nomeGiocatore, BorderLayout.NORTH);
 
-        // --- centro: carta + punteggi
+
         centro.setOpaque(false);
 
         cartaLabel = new JLabel();
@@ -61,7 +60,7 @@ public class PlayerArea extends JPanel implements TurnObserver {
 
         add(centro, BorderLayout.CENTER);
 
-        // Info in basso
+
         JPanel info = new JPanel(new GridLayout(1, 2));
         gettoni = new JLabel("Gettoni: " + giocatore.getGettoni(), SwingConstants.CENTER);
         info.setOpaque(false);
@@ -77,7 +76,7 @@ public class PlayerArea extends JPanel implements TurnObserver {
     public void onTurnChanged(Giocatore corrente) {
         boolean mioTurno = (corrente == giocatore);
 
-        // Evidenzia il giocatore corrente
+
         if (mioTurno) {
             setBackground(new Color(0, 120, 0)); // più chiaro
             setBorder(BorderFactory.createLineBorder(Color.YELLOW, 4));

@@ -22,7 +22,6 @@ public class GameMemento implements Memento, Serializable {
      * @param modalita modalita di gioco
      */
     public GameMemento(List<Giocatore> giocatori, List<Carta> mazzo, String modalita) {
-        // Creiamo copie "profondamente immutabili" per sicurezza
         this.giocatori = new ArrayList<>();
         for (Giocatore g : giocatori) {
             Giocatore copia = new Giocatore(g.getNome(), g.getGettoni(), g.isMazziere());
